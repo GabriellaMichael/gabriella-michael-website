@@ -41,8 +41,60 @@
 
 <section class="section journal reveal" id="journal"><small>05 / THE JOURNAL</small><label>FROM THE DESK OF GABRIELLA</label><h2>THE AUTHOR'S <i>JOURNAL</i></h2><div class="journal-grid"><article><small>01 / WRITING</small><h3>Building worlds that feel like home</h3><span>Coming soon</span></article><article><small>02 / BOOKS</small><h3>The story behind A Fate of Ophelia</h3><span>Coming soon</span></article><article><small>03 / FILM</small><h3>From a screenplay to The Last Witness</h3><span>Coming soon</span></article></div></section>
 
-<section class="newsletter section reveal" id="newsletter"><div><small>THE READER COMMUNITY</small><h2>ENTER <i>MY WORLD</i></h2><p>Be the first to hear about new books, secret projects, writing updates, and stories from behind the scenes.</p></div><form onsubmit="return false"><input placeholder="Your name"><input type="email" placeholder="Your email address"><button class="btn red" type="submit">JOIN THE READER LIST</button><small>Reader list sign-up coming soon.</small></form></section>
+<section class="newsletter section reveal" id="newsletter">
+  <div>
+    <small>THE READER COMMUNITY</small>
+    <h2>ENTER <i>MY WORLD</i></h2>
+    <p>
+      Be the first to hear about new books, secret projects, writing updates,
+      and stories from behind the scenes.
+    </p>
+  </div>
 
+  <form id="readerForm">
+
+    <input
+      type="hidden"
+      name="access_key"
+      value=ef22f026-7430-44a8-8c2b-af608c90b937
+    >
+
+    <input
+      type="text"
+      name="name"
+      placeholder="Your name"
+      required
+    >
+
+    <input
+      type="email"
+      name="email"
+      placeholder="Your email address"
+      required
+    >
+
+    <input
+      type="hidden"
+      name="subject"
+      value="New Gabriella Michael Reader List Signup"
+    >
+
+    <input
+      type="hidden"
+      name="from_name"
+      value="Gabriella Michael Website"
+    >
+
+    <button class="btn red" type="submit" id="readerSubmit">
+      JOIN THE READER LIST
+    </button>
+
+    <small id="readerMessage" style="display:none;">
+      YOU'RE ON THE LIST ✨
+    </small>
+
+  </form>
+</section>
 <section class="light center section reveal" id="work"><label>COLLABORATIONS</label><h2>LET'S CREATE<br><i>SOMETHING</i></h2><div class="worklist"><span>Ghostwriting</span><span>Scriptwriting</span><span>Story Development</span><span>Creative Writing</span><span>Speaking / Literary Events</span></div><a class="btn red" href="#contact">GET IN TOUCH</a></section>
 
 <section class="section reveal" id="contact"><small>06 / CONTACT</small><label>LET'S TALK STORIES</label><h2>Have a story<br><i>to tell?</i></h2><p class="contactcopy">For writing collaborations, film projects, literary events and professional enquiries, get in touch.</p>
