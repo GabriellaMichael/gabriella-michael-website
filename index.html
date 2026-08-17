@@ -1,114 +1,1200 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Official website of Gabriella Michael, author, screenwriter and storyteller.">
 <title>Gabriella Michael | Author • Screenwriter • Storyteller</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=Cinzel:wght@400;500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#4a2530;
+    --wine-deep:#56303c;
+    --wine:#63394a;
+    --blood:#a1273c;
+    --blood-bright:#c23652;
+    --gold:#cf9f4a;
+    --gold-light:#eecd8f;
+    --bone:#f6ece2;
+    --bone-dim:#dcb9bc;
+    --line: rgba(207,159,74,0.28);
+    --shadow: 0 20px 60px rgba(20,8,12,0.45);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+
+  body{
+    background:
+      radial-gradient(ellipse 120% 60% at 50% -10%, rgba(161,39,60,0.22), transparent 60%),
+      radial-gradient(ellipse 80% 50% at 100% 20%, rgba(86,48,60,0.4), transparent 60%),
+      var(--ink);
+    color:var(--bone);
+    font-family:'EB Garamond', serif;
+    font-size:18px;
+    line-height:1.7;
+    overflow-x:hidden;
+  }
+
+  ::selection{background:var(--blood); color:var(--bone);}
+
+  a{color:inherit; text-decoration:none;}
+
+  img{max-width:100%; display:block;}
+
+  .eyebrow{
+    font-family:'Cinzel', serif;
+    font-size:0.72rem;
+    letter-spacing:0.32em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:500;
+  }
+
+  h1,h2,h3{
+    font-family:'Playfair Display', serif;
+    font-weight:600;
+    line-height:1.1;
+    color:var(--bone);
+  }
+
+  em{
+    font-style:italic;
+    color:var(--gold-light);
+    font-weight:600;
+  }
+
+  .container{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 6vw;
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--gold-light);
+    outline-offset:4px;
+  }
+
+  /* ---------- BLEEDING ROSE PROGRESS MARKER ---------- */
+  .rose-marker{
+    position:fixed;
+    top:50%;
+    right:24px;
+    transform:translateY(-50%);
+    width:34px;
+    height:34px;
+    z-index:200;
+    pointer-events:none;
+  }
+  @media (max-width:768px){ .rose-marker{ right:12px; width:26px; height:26px; } }
+
+  .rose-marker svg{ width:100%; height:100%; overflow:visible; }
+  .rose-outline{ fill:none; stroke:var(--gold); stroke-width:1.1; opacity:0.55; }
+  .rose-fill{
+    fill:var(--blood-bright);
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 0.05s linear;
+  }
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:linear-gradient(to bottom, rgba(10,5,6,0.92), rgba(10,5,6,0));
+    backdrop-filter:blur(6px);
+    padding:22px 0;
+    border-bottom:1px solid transparent;
+    transition:border-color 0.4s ease, background 0.4s ease;
+  }
+  header.scrolled{
+    background:rgba(10,5,6,0.88);
+    border-bottom:1px solid var(--line);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    max-width:1180px; margin:0 auto; padding:0 6vw;
+  }
+  .brand{
+    font-family:'Cinzel', serif;
+    font-size:1.05rem;
+    letter-spacing:0.22em;
+    color:var(--bone);
+  }
+  .navlinks{ display:flex; gap:34px; list-style:none; }
+  .navlinks a{
+    font-family:'Cinzel', serif;
+    font-size:0.72rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--bone-dim);
+    position:relative;
+    padding-bottom:4px;
+  }
+  .navlinks a::after{
+    content:'';
+    position:absolute; left:0; bottom:0;
+    width:0; height:1px; background:var(--gold);
+    transition:width 0.35s ease;
+  }
+  .navlinks a:hover{ color:var(--gold-light); }
+  .navlinks a:hover::after{ width:100%; }
+  .navtoggle{ display:none; background:none; border:none; color:var(--gold); font-size:1.4rem; cursor:pointer; }
+
+  @media (max-width:860px){
+    .navlinks{
+      position:fixed; top:0; right:0; height:100vh; width:min(78vw,320px);
+      background:linear-gradient(160deg, var(--wine-deep), var(--ink));
+      flex-direction:column; justify-content:center; gap:28px;
+      padding:0 40px;
+      transform:translateX(100%);
+      transition:transform 0.45s cubic-bezier(.77,0,.18,1);
+      border-left:1px solid var(--line);
+    }
+    .navlinks.open{ transform:translateX(0); }
+    .navtoggle{ display:block; z-index:101; }
+  }
+
+  /* ---------- HERO (cinematic, book-led) ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding:150px 6vw 80px;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:'';
+    position:absolute; inset:0; z-index:0;
+    background:
+      radial-gradient(ellipse 70% 60% at 78% 40%, rgba(161,39,60,0.28), transparent 65%),
+      radial-gradient(ellipse 50% 70% at 10% 80%, rgba(99,57,74,0.5), transparent 70%),
+      radial-gradient(ellipse 90% 50% at 50% 100%, rgba(58,30,38,0.55), transparent);
+  }
+  .hero::after{
+    /* mist layer */
+    content:'';
+    position:absolute; left:0; right:0; bottom:0; height:40%; z-index:1;
+    background:linear-gradient(to top, var(--ink), transparent);
+    pointer-events:none;
+  }
+  .hero-grid{
+    position:relative; z-index:2;
+    max-width:1180px; margin:0 auto; width:100%;
+    display:grid; grid-template-columns:1.05fr 0.95fr;
+    align-items:center; gap:60px;
+  }
+  @media (max-width:960px){
+    .hero-grid{ grid-template-columns:1fr; text-align:center; gap:44px; }
+    .hero-cover-wrap{ order:-1; }
+  }
+  .hero-copy .eyebrow{ display:block; margin-bottom:22px; }
+  .hero-copy h1{
+    font-size:clamp(2.6rem, 6vw, 4.6rem);
+    letter-spacing:0.005em;
+    margin-bottom:24px;
+  }
+  .hero-line{
+    font-family:'EB Garamond', serif;
+    font-style:italic;
+    color:var(--bone-dim);
+    font-size:1.2rem;
+    margin:0 0 38px;
+    max-width:480px;
+  }
+  @media (max-width:960px){ .hero-line{ margin:0 auto 38px; } }
+  .hero-ctas{ display:flex; gap:20px; flex-wrap:wrap; }
+  @media (max-width:960px){ .hero-ctas{ justify-content:center; } }
+
+  .credibility-bar{
+    position:relative; z-index:2;
+    display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+    margin-bottom:34px;
+  }
+  .cred-pill{
+    font-family:'Cinzel', serif; font-size:0.64rem; letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--gold-light);
+    border:1px solid var(--line);
+    padding:8px 16px;
+    background:rgba(140,20,40,0.08);
+  }
+
+  .hero-cover-wrap{
+    position:relative; z-index:2;
+    display:flex; justify-content:center;
+  }
+  .hero-cover{
+    position:relative;
+    width:min(340px, 70vw);
+    transform:rotate(-2deg);
+    filter:drop-shadow(0 40px 70px rgba(0,0,0,0.65));
+  }
+  .hero-cover img{
+    width:100%; border:1px solid var(--gold);
+    box-shadow:0 0 0 8px rgba(10,5,6,0.4), 0 0 80px rgba(140,20,40,0.35);
+  }
+  .hero-cover::before{
+    content:'';
+    position:absolute; inset:-30px;
+    background:radial-gradient(circle, rgba(201,162,39,0.18), transparent 65%);
+    z-index:-1;
+  }
+  .hero-cover-tag{
+    position:absolute; top:-16px; right:-16px;
+    background:var(--blood);
+    border:1px solid var(--gold);
+    color:var(--bone);
+    font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.12em; text-transform:uppercase;
+    padding:8px 14px;
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Cinzel', serif;
+    font-size:0.74rem;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    padding:16px 32px;
+    border-radius:2px;
+    position:relative;
+    transition:transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-seal{
+    background:var(--blood);
+    color:var(--bone);
+    border:1px solid var(--gold);
+    box-shadow:0 0 0 0 rgba(201,162,39,0);
+  }
+  .btn-seal:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 30px rgba(140,20,40,0.5), 0 0 0 1px var(--gold-light);
+  }
+  .btn-ghost{
+    background:transparent;
+    color:var(--gold-light);
+    border:1px solid var(--line);
+  }
+  .btn-ghost:hover{
+    border-color:var(--gold);
+    background:rgba(201,162,39,0.06);
+    transform:translateY(-2px);
+  }
+
+  .scroll-cue{
+    position:absolute; bottom:38px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:10px;
+    font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.28em;
+    color:var(--bone-dim); text-transform:uppercase;
+    z-index:2;
+  }
+  .scroll-cue .stem{
+    width:1px; height:38px;
+    background:linear-gradient(to bottom, var(--gold), transparent);
+    animation:driploop 2.6s ease-in-out infinite;
+  }
+  @keyframes driploop{
+    0%,100%{ transform:scaleY(1); opacity:0.7;}
+    50%{ transform:scaleY(0.6); opacity:1;}
+  }
+
+  /* ---------- THORN DIVIDER ---------- */
+  .thorn-divider{
+    display:flex; align-items:center; justify-content:center;
+    padding:0;
+    margin: 0 auto;
+    max-width:520px;
+  }
+  .thorn-divider svg{
+    width:100%; height:auto;
+    stroke:var(--gold);
+    fill:none;
+    stroke-width:1;
+    opacity:0.35;
+  }
+  .thorn-divider .vine{
+    stroke-dasharray:400;
+    stroke-dashoffset:400;
+    transition:stroke-dashoffset 1.4s ease;
+  }
+  .thorn-divider.revealed .vine{ stroke-dashoffset:0; }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{ position:relative; padding:120px 0; }
+  .section-alt{
+    background:linear-gradient(180deg, transparent, var(--wine-deep) 15%, var(--wine-deep) 85%, transparent);
+  }
+  .section-head{ text-align:center; max-width:640px; margin:0 auto 70px; }
+  .section-head .eyebrow{ margin-bottom:18px; }
+  .section-head h2{ font-size:clamp(2.1rem, 4.4vw, 3.1rem); }
+
+  .reveal{
+    opacity:0; transform:translateY(28px);
+    transition:opacity 0.9s ease, transform 0.9s ease;
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{
+    display:grid; grid-template-columns: 0.85fr 1.15fr; gap:70px; align-items:center;
+  }
+  @media (max-width:860px){ .about-grid{ grid-template-columns:1fr; gap:40px; } }
+  .about-portrait{
+    position:relative;
+    border:1px solid var(--line);
+    padding:14px;
+  }
+  .about-portrait img{ filter:sepia(0.18) saturate(1.05) contrast(1.05); }
+  .about-portrait::after{
+    content:'';
+    position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 0%, transparent 40%, rgba(140,20,40,0.18));
+    pointer-events:none;
+  }
+  .about-caption{
+    font-family:'Cinzel', serif; font-size:0.65rem; letter-spacing:0.16em;
+    color:var(--bone-dim); text-transform:uppercase; margin-top:16px; text-align:center;
+  }
+  .about-copy p{ margin-bottom:20px; color:var(--bone-dim); }
+  .about-copy p:first-of-type::first-letter{
+    font-family:'Playfair Display', serif;
+    font-size:3.6rem; float:left; line-height:0.8; padding:8px 12px 0 0;
+    color:var(--gold); font-weight:700;
+  }
+  .about-copy .cta-row{ margin-top:30px; }
+
+  /* ---------- BOOKS ---------- */
+  .books-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:44px 34px;
+  }
+  @media (max-width:920px){ .books-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:600px){ .books-grid{ grid-template-columns:1fr; } }
+
+  .book-card{
+    position:relative;
+    display:flex; flex-direction:column;
+  }
+  .book-cover{
+    position:relative;
+    aspect-ratio:2/3;
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+  }
+  .book-cover img{
+    width:100%; height:100%; object-fit:cover;
+    transition:transform 0.7s ease, filter 0.7s ease;
+    filter:saturate(0.95) contrast(1.05);
+  }
+  .book-card:hover .book-cover img{ transform:scale(1.06); filter:saturate(1.1) contrast(1.1); }
+  .book-cover::before{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(10,5,6,0) 55%, rgba(10,5,6,0.9));
+    z-index:1;
+  }
+  .book-tag{
+    position:absolute; top:14px; left:14px; z-index:2;
+    font-family:'Cinzel', serif; font-size:0.6rem; letter-spacing:0.14em;
+    text-transform:uppercase;
+    padding:6px 12px;
+    background:rgba(10,5,6,0.75);
+    border:1px solid var(--gold);
+    color:var(--gold-light);
+  }
+  .book-meta{ padding-top:20px; }
+  .book-meta .genre{
+    font-family:'Cinzel', serif; font-size:0.62rem; letter-spacing:0.16em;
+    color:var(--blood-bright); text-transform:uppercase; margin-bottom:8px; display:block;
+  }
+  .book-meta h3{ font-size:1.3rem; margin-bottom:10px; }
+  .book-meta p{ color:var(--bone-dim); font-size:0.96rem; margin-bottom:16px; }
+  .book-links{ display:flex; gap:18px; flex-wrap:wrap; }
+  .book-links a{
+    font-family:'Cinzel', serif; font-size:0.66rem; letter-spacing:0.14em;
+    text-transform:uppercase; color:var(--gold);
+    border-bottom:1px solid transparent;
+    padding-bottom:3px;
+  }
+  .book-links a:hover{ border-color:var(--gold); color:var(--gold-light); }
+
+  .featured-strip{
+    margin-top:100px;
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:60px; align-items:center;
+    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:60px 0;
+  }
+  @media (max-width:860px){ .featured-strip{ grid-template-columns:1fr; gap:34px; } }
+  .featured-strip img{ border:1px solid var(--line); box-shadow:var(--shadow); }
+  .featured-copy .eyebrow{ margin-bottom:16px; }
+  .featured-copy h3{ font-size:2.1rem; margin-bottom:16px; font-style:italic; }
+  .featured-copy p{ color:var(--bone-dim); margin-bottom:26px; }
+
+  /* ---------- GENRES / WRITING ---------- */
+  .genre-list{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:0;
+    border-top:1px solid var(--line);
+  }
+  @media (max-width:920px){ .genre-list{ grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .genre-list{ grid-template-columns:1fr;} }
+  .genre-item{
+    padding:36px 22px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    transition:background 0.4s ease;
+  }
+  .genre-list .genre-item:last-child{ border-right:none; }
+  .genre-item:hover{ background:rgba(140,20,40,0.09); }
+  .genre-num{ font-family:'Cinzel',serif; color:var(--gold); font-size:0.7rem; letter-spacing:0.14em; margin-bottom:14px; display:block;}
+  .genre-item h3{ font-size:1.2rem; margin-bottom:10px; font-style:italic; }
+  .genre-item p{ color:var(--bone-dim); font-size:0.92rem; }
+
+  /* ---------- FILM ---------- */
+  .film-wrap{
+    position:relative;
+    border:1px solid var(--line);
+    overflow:hidden;
+  }
+  .film-media{ position:relative; aspect-ratio:16/9; overflow:hidden; }
+  .film-media img{ width:100%; height:100%; object-fit:cover; filter:grayscale(0.3) contrast(1.1) brightness(0.85); }
+  .film-media::after{
+    content:'';
+    position:absolute; inset:0;
+    background:linear-gradient(0deg, rgba(10,5,6,0.95), rgba(10,5,6,0.15) 55%);
+  }
+  .film-overlay{
+    position:absolute; left:0; right:0; bottom:0; padding:44px;
+    z-index:2;
+  }
+  .film-overlay .eyebrow{ margin-bottom:14px; }
+  .film-overlay h3{ font-size:clamp(1.7rem,3.4vw,2.6rem); margin-bottom:14px; }
+  .film-overlay p{ color:var(--bone-dim); max-width:560px; margin-bottom:10px; }
+  .film-role{ font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.14em; color:var(--gold-light); text-transform:uppercase; margin-bottom:24px; display:block;}
+
+  /* ---------- JOURNAL ---------- */
+  .journal-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:36px; }
+  @media (max-width:860px){ .journal-grid{ grid-template-columns:1fr; } }
+  .journal-card{
+    border:1px solid var(--line);
+    padding:32px 28px;
+    min-height:220px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:border-color 0.35s ease, background 0.35s ease;
+  }
+  .journal-card:hover{ border-color:var(--gold); background:rgba(201,162,39,0.04); }
+  .journal-card .genre{ font-family:'Cinzel',serif; font-size:0.6rem; letter-spacing:0.16em; color:var(--blood-bright); text-transform:uppercase; }
+  .journal-card h3{ font-size:1.25rem; margin:16px 0; font-style:italic; }
+  .journal-status{ font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.14em; color:var(--bone-dim); text-transform:uppercase; }
+
+  /* ---------- QUOTES ---------- */
+  .quotes-track{
+    display:flex; gap:34px; overflow-x:auto; padding:10px 6vw 30px;
+    scroll-snap-type:x mandatory;
+    scrollbar-width:none;
+  }
+  .quotes-track::-webkit-scrollbar{ display:none; }
+  .quote-card{
+    scroll-snap-align:start;
+    min-width:min(420px,84vw);
+    border:1px solid var(--line);
+    padding:38px 34px;
+    background:rgba(140,20,40,0.05);
+  }
+  .quote-mark{ font-family:'Playfair Display',serif; font-size:3rem; color:var(--gold); line-height:0.4; display:block; margin-bottom:18px; }
+  .quote-card p{ font-style:italic; color:var(--bone); margin-bottom:20px; font-size:1.05rem; }
+  .quote-source{ font-family:'Cinzel',serif; font-size:0.64rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold-light); }
+
+  /* ---------- JOURNAL MODAL ---------- */
+  .journal-card{ cursor:pointer; text-align:left; }
+  .journal-excerpt{ color:var(--bone-dim); font-size:0.92rem; margin-top:10px; }
+  .journal-read{ font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.14em; color:var(--gold); text-transform:uppercase; margin-top:16px; display:inline-block; }
+
+  .modal-overlay{
+    position:fixed; inset:0; z-index:300;
+    background:rgba(10,5,6,0.88);
+    backdrop-filter:blur(4px);
+    display:none;
+    align-items:flex-start;
+    justify-content:center;
+    overflow-y:auto;
+    padding:80px 6vw;
+  }
+  .modal-overlay.open{ display:flex; }
+  .modal-box{
+    background:var(--wine-deep);
+    border:1px solid var(--gold);
+    max-width:720px; width:100%;
+    padding:50px 44px;
+    position:relative;
+    box-shadow:var(--shadow);
+  }
+  @media (max-width:600px){ .modal-box{ padding:40px 26px; } }
+  .modal-close{
+    position:absolute; top:20px; right:20px;
+    background:none; border:1px solid var(--line); color:var(--gold-light);
+    width:34px; height:34px; cursor:pointer; font-size:1.1rem;
+    border-radius:50%;
+  }
+  .modal-close:hover{ border-color:var(--gold); }
+  .modal-box h3{ font-size:1.9rem; margin:10px 0 20px; font-style:italic; }
+  .modal-box p{ color:var(--bone-dim); margin-bottom:18px; }
+
+  /* ---------- NEWSLETTER ---------- */
+  .newsletter{
+    text-align:center;
+    max-width:640px; margin:0 auto;
+  }
+  .newsletter p{ color:var(--bone-dim); margin-bottom:36px; }
+  .newsletter-form{
+    display:flex; gap:0; max-width:440px; margin:0 auto;
+    border:1px solid var(--gold);
+  }
+  .newsletter-form input{
+    flex:1; background:transparent; border:none; padding:16px 18px;
+    color:var(--bone); font-family:'EB Garamond', serif; font-size:1rem;
+  }
+  .newsletter-form input::placeholder{ color:var(--bone-dim); }
+  .newsletter-form input:focus{ outline:none; }
+  .newsletter-form button{
+    background:var(--blood); color:var(--bone); border:none;
+    font-family:'Cinzel',serif; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase;
+    padding:0 26px; cursor:pointer; transition:background 0.3s ease;
+  }
+  .newsletter-form button:hover{ background:var(--blood-bright); }
+  .newsletter-note{ margin-top:16px; font-size:0.85rem; color:var(--bone-dim); font-style:italic; }
+
+  /* ---------- COLLABORATIONS ---------- */
+  .collab-tags{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:10px; }
+  .collab-tag{
+    font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase;
+    border:1px solid var(--line); padding:12px 22px; color:var(--bone-dim);
+    transition:all 0.3s ease;
+  }
+  .collab-tag:hover{ border-color:var(--gold); color:var(--gold-light); }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start;
+  }
+  @media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; gap:40px; text-align:center;} }
+  .contact-grid h2{ font-size:clamp(2.2rem,4.6vw,3.4rem); margin-bottom:20px; }
+  .contact-grid > div:first-child p{ color:var(--bone-dim); }
+  .social-list{ display:flex; flex-direction:column; gap:18px; }
+  @media (max-width:860px){ .social-list{ align-items:center; } }
+  .social-list a{
+    font-family:'Cinzel',serif; font-size:0.85rem; letter-spacing:0.1em;
+    display:flex; align-items:center; gap:14px;
+    color:var(--bone-dim);
+    transition:color 0.3s ease;
+  }
+  .social-list a:hover{ color:var(--gold-light); }
+  .social-list a .dot{ width:6px; height:6px; border-radius:50%; background:var(--blood-bright); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:60px 0 40px;
+    text-align:center;
+  }
+  footer .brand{ display:block; margin-bottom:8px; }
+  footer .eyebrow{ display:block; margin-bottom:30px; }
+  .footer-links{ display:flex; gap:28px; justify-content:center; list-style:none; margin-bottom:30px; flex-wrap:wrap; }
+  .footer-links a{ font-family:'Cinzel',serif; font-size:0.66rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--bone-dim); }
+  .footer-links a:hover{ color:var(--gold-light); }
+  .footer-fine{ font-size:0.82rem; color:var(--bone-dim); font-style:italic; }
+
+</style>
 </head>
 <body>
-<header id="nav">
-<a class="brand" href="#home">GABRIELLA <span>MICHAEL</span></a>
-<button id="menu" aria-label="Open menu">☰</button>
-<nav id="links">
-<a href="#home">Home</a><a href="#about">About</a><a href="#books">Books</a><a href="#writing">Writing</a><a href="#film">Film</a><a href="#journal">Journal</a><a href="#contact">Contact</a><a class="cta" href="#work">Work With Me</a>
-</nav>
-</header>
-<main>
-<section class="hero" id="home"><div class="hero-bg"></div><div class="shade"></div><div class="hero-copy reveal"><small>AUTHOR • SCREENWRITER • STORYTELLER</small><h1>GABRIELLA<br><i>MICHAEL</i></h1><p>Stories are the worlds I build when reality is not enough.</p><div><a class="btn red" href="#books">Explore My Books</a><a class="btn" href="#about">About Me</a></div></div><span class="scroll">SCROLL TO DISCOVER ↓</span></section>
 
-<section class="light section reveal" id="about"><small>01 / THE AUTHOR</small><div class="split"><div><label>THE STORY BEHIND THE STORIES</label><h2>She writes the worlds<br><i>she wants to live in.</i></h2></div><div class="prose"><p>Gabriella Michael is a Nigerian author and screenwriter passionate about fantasy, romance, film, and emotionally driven stories. She creates stories that explore love, identity, destiny, power, heartbreak, mystery, and the extraordinary worlds hidden beyond ordinary life.</p><p>She is the creator of multiple fictional worlds and the founder of Gabriella Michael Studios, where stories move from page to screen.</p><a class="text" href="#contact">GET IN TOUCH ↗</a></div></div><figure><img src="author.jpeg" alt="Gabriella Michael"><figcaption>GABRIELLA MICHAEL / WRITER & STORYTELLER</figcaption></figure></section>
-
-<section class="section reveal" id="books"><small>02 / THE LIBRARY</small><div class="head"><div><label>A COLLECTION OF WORLDS</label><h2>MY <i>BOOKS</i></h2></div><p>Fantasy, romance, darkness and impossible destinies. Every story begins with a world waiting to be discovered.</p></div>
-<div class="featured"><img src="ellie-cover.jpeg" alt="Ellie the Chosen: Born of Three Worlds"><div><b>PUBLISHED</b><h3>ELLIE THE CHOSEN:<br><i>BORN OF THREE WORLDS</i></h3><small>FANTASY ROMANCE • ROMANTASY</small><p>A story of destiny, power and a girl caught between worlds. Enter the universe of Ellie, where the extraordinary is not a legend. It is her inheritance.</p><a class="btn red" href="https://www.pabpub.com/book/3597" target="_blank" rel="noopener">Read on PabPub</a><a class="btn" href="https://share.google/4fPct9AE1BAuc6jdd" target="_blank" rel="noopener">Paperback</a></div></div>
-<div class="books">
-<article><img src="ophelia-cover.jpeg" alt="A Fate of Ophelia"><b>COMING SOON</b><h3>A FATE OF OPHELIA</h3><p>Some fates are written in blood. Others are waiting to be broken.</p></article>
-<article><img src="shadows-cover.jpeg" alt="Shadows of Three Worlds"><b>COMING SOON</b><h3>SHADOWS OF THREE WORLDS</h3><p>The next chapter of the worlds created in Ellie the Chosen.</p></article>
-<article><a class="cover-link" href="https://www.pabpub.com/book/3525" target="_blank" rel="noopener"><img src="chronicles-cover.jpeg" alt="Chronicles of the Chosen"></a><b>AVAILABLE</b><h3>CHRONICLES OF THE CHOSEN</h3><p>Another journey into a world where power chooses its vessels.</p><a class="text" href="https://www.pabpub.com/book/3525" target="_blank" rel="noopener">READ ON PABPUB ↗</a></article>
-<article><a class="cover-link" href="http://wbnv.in/a/00k2Xnf" target="_blank" rel="noopener"><img src="reborn-cover.jpeg" alt="Reborn to Reject Him First"></a><b>WEBNOVEL</b><h3>REBORN TO REJECT HIM FIRST</h3><p>A second chance, a dangerous love and a decision that changes everything.</p><a class="text" href="http://wbnv.in/a/00k2Xnf" target="_blank" rel="noopener">READ THE STORY ↗</a></article>
-<article><a class="cover-link" href="http://wbnv.in/a/2cjg8jM" target="_blank" rel="noopener"><img src="forbidden-alpha-cover.jpeg" alt="The Forbidden Alpha"></a><b>WEBNOVEL</b><h3>THE FORBIDDEN ALPHA</h3><p>Some bonds should never exist. Some are impossible to escape.</p><a class="text" href="http://wbnv.in/a/2cjg8jM" target="_blank" rel="noopener">READ THE STORY ↗</a></article>
-</div></section>
-
-<section class="ophelia section reveal"><div class="op-bg"></div><div class="shade"></div><div class="op-copy"><small>A NEW STORY IS COMING</small><h2>A FATE<br>OF <i>OPHELIA</i></h2><strong>COMING SOON</strong><p>Once upon a time, a crown was placed upon her head. But every crown has a price, and Ophelia's fate may demand everything.</p><a class="btn red" href="#contact">Join The Reader List</a></div></section>
-
-<section class="light section reveal" id="writing"><small>03 / THE WRITING</small><label>WORDS FROM MY WORLDS</label><h2>Stories with a pulse.<br><i>Worlds with a soul.</i></h2><div class="genres"><div>01<h3>Romantasy</h3><p>Love, magic and impossible choices.</p></div><div>02<h3>Fantasy</h3><p>Worlds beyond the boundaries of reality.</p></div><div>03<h3>Romance</h3><p>Stories about the beautiful and complicated parts of love.</p></div><div>04<h3>Drama</h3><p>Characters carrying secrets, wounds and dreams.</p></div><div>05<h3>Thriller</h3><p>Mystery, tension and truths that refuse to stay buried.</p></div></div><a class="text" href="#journal">READ THE JOURNAL ↗</a></section>
-
-<section class="section reveal" id="film"><small>04 / THE SCREEN</small><div class="film"><img src="last-witness.jpeg" alt="The Last Witness film poster"><div><label>FROM PAGE TO SCREEN</label><h2>Some stories are meant to be read.<br><i>Others are meant to be seen.</i></h2><b>GABRIELLA MICHAEL STUDIOS</b><p>Gabriella Michael Studios is her creative film brand focused on storytelling through film and screenwriting.</p><div class="project"><small>UPCOMING PROJECT</small><h3>THE LAST WITNESS</h3><p>A psychological mystery about secrets, a missing father, a buried truth and the evidence that refuses to disappear.</p><em>SCREENWRITER: GABRIELLA MICHAEL</em></div><a class="btn" href="https://youtube.com/@gabriellamichaelstudios" target="_blank" rel="noopener">Visit The Studio ↗</a></div></div></section>
-
-<section class="section journal reveal" id="journal"><small>05 / THE JOURNAL</small><label>FROM THE DESK OF GABRIELLA</label><h2>THE AUTHOR'S <i>JOURNAL</i></h2><div class="journal-grid"><article><small>01 / WRITING</small><h3>Building worlds that feel like home</h3><span>Coming soon</span></article><article><small>02 / BOOKS</small><h3>The story behind A Fate of Ophelia</h3><span>Coming soon</span></article><article><small>03 / FILM</small><h3>From a screenplay to The Last Witness</h3><span>Coming soon</span></article></div></section>
-
-<section class="newsletter section reveal" id="newsletter">
-  <div>
-    <small>THE READER COMMUNITY</small>
-    <h2>ENTER <i>MY WORLD</i></h2>
-    <p>
-      Be the first to hear about new books, secret projects, writing updates,
-      and stories from behind the scenes.
-    </p>
-  </div>
-
-  <form id="readerForm">
-
-    <input
-      type="hidden"
-      name="access_key"
-      value=ef22f026-7430-44a8-8c2b-af608c90b937
-    >
-
-    <input
-      type="text"
-      name="name"
-      placeholder="Your name"
-      required
-    >
-
-    <input
-      type="email"
-      name="email"
-      placeholder="Your email address"
-      required
-    >
-
-    <input
-      type="hidden"
-      name="subject"
-      value="New Gabriella Michael Reader List Signup"
-    >
-
-    <input
-      type="hidden"
-      name="from_name"
-      value="Gabriella Michael Website"
-    >
-
-    <button class="btn red" type="submit" id="readerSubmit">
-      JOIN THE READER LIST
-    </button>
-
-    <small id="readerMessage" style="display:none;">
-      YOU'RE ON THE LIST ✨
-    </small>
-
-  </form>
-</section>
-<section class="light center section reveal" id="work"><label>COLLABORATIONS</label><h2>LET'S CREATE<br><i>SOMETHING</i></h2><div class="worklist"><span>Ghostwriting</span><span>Scriptwriting</span><span>Story Development</span><span>Creative Writing</span><span>Speaking / Literary Events</span></div><a class="btn red" href="#contact">GET IN TOUCH</a></section>
-
-<section class="section reveal" id="contact"><small>06 / CONTACT</small><label>LET'S TALK STORIES</label><h2>Have a story<br><i>to tell?</i></h2><p class="contactcopy">For writing collaborations, film projects, literary events and professional enquiries, get in touch.</p>
-<div class="social-icons" aria-label="Social and contact links">
-<a href="mailto:michaelgabriella145@gmail.com" aria-label="Email Gabriella Michael" title="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.7"/></svg></a>
-<a href="https://www.instagram.com/gabriellamichael_author/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.7" r="1" fill="currentColor"/></svg></a>
-<a href="https://www.tiktok.com/@gabri_ellamichael" target="_blank" rel="noopener" aria-label="TikTok" title="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4v10.2a4.3 4.3 0 1 1-3.1-4.1v3.1a1.5 1.5 0 1 0 1.6 1.5V4h3.1c.2 1.7 1.2 2.9 2.8 3.5v3a7.1 7.1 0 0 1-2.8-1.2V14.2A7.4 7.4 0 1 1 11 7.4V4z" fill="currentColor"/></svg></a>
-<a href="https://wa.me/2349078507935" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.9L3.5 20.5l4.2-1.1A8.5 8.5 0 1 0 12 3.5Z" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8.8 8.4c.3-.3.6-.2.9.1l1 1.2c.2.2.2.5 0 .8l-.5.6c.6 1.1 1.4 1.8 2.5 2.4l.6-.5c.3-.2.6-.2.8 0l1.2.9c.3.2.3.6.1.9l-.4.5c-.4.5-1 .7-1.6.5-3.1-1-5.2-3.1-6.2-6.2-.2-.6 0-1.2.5-1.6z" fill="currentColor"/></svg></a>
-<a href="https://youtube.com/@gabriellamichaelstudios" target="_blank" rel="noopener" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="m10 9 5 3-5 3z" fill="currentColor"/></svg></a>
+<div class="rose-marker" aria-hidden="true">
+  <svg viewBox="0 0 100 100">
+    <g class="rose-outline">
+      <path d="M50 20 C 35 20, 25 32, 25 45 C 25 58, 38 66, 50 66 C 62 66, 75 58, 75 45 C 75 32, 65 20, 50 20 Z"/>
+      <path d="M50 30 C 42 30, 36 37, 36 45 C 36 53, 43 58, 50 58 C 57 58, 64 53, 64 45 C 64 37, 58 30, 50 30 Z"/>
+      <path d="M50 66 L50 88 M50 74 L40 80 M50 78 L60 84"/>
+    </g>
+    <g class="rose-fill">
+      <path d="M50 20 C 35 20, 25 32, 25 45 C 25 58, 38 66, 50 66 C 62 66, 75 58, 75 45 C 75 32, 65 20, 50 20 Z"/>
+      <path d="M50 66 L50 88 M50 74 L40 80 M50 78 L60 84" stroke="currentColor" stroke-width="1.4"/>
+    </g>
+  </svg>
 </div>
 
+<header id="siteHeader">
+  <nav>
+    <a href="#home" class="brand">GABRIELLA MICHAEL</a>
+    <button class="navtoggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+    <ul class="navlinks" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#books">Books</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#film">Film</a></li>
+      <li><a href="#journal">Journal</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#work">Work With Me</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow">Author · Screenwriter · Storyteller</span>
+      <p style="font-family:'Playfair Display',serif; font-style:italic; color:var(--gold-light); font-size:1.05rem; margin:18px 0 22px;">"I speak in ink and hearts would stir, I am the Author of Dreams."</p>
+      <h1>Power chooses <em>its vessel.</em></h1>
+      <p class="hero-line">Enter the world of <em>Ellie the Chosen</em> — a girl caught between three worlds, and a destiny she never asked for.</p>
+      <div class="hero-ctas">
+        <a href="https://www.pabpub.com/book/3597" class="btn btn-seal">Read Ellie The Chosen</a>
+        <a href="#books" class="btn btn-ghost">Explore All Books</a>
+        <a href="https://youtube.com/@officialgabriella_michael?si=9IUn-QOKKBRXG5S9" class="btn btn-ghost">Watch Me Grow ↗</a>
+      </div>
+    </div>
+    <div class="hero-cover-wrap">
+      <div class="hero-cover">
+        <span class="hero-cover-tag">Published</span>
+        <img src="https://gabriellamichael.com.ng/ellie-cover.jpeg" alt="Ellie the Chosen: Born of Three Worlds cover">
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>Descend</span><span class="stem"></span></div>
 </section>
-</main>
-<footer><h3>GABRIELLA <i>MICHAEL</i></h3><p>AUTHOR • SCREENWRITER • STORYTELLER</p><div><a href="#home">Home</a><a href="#books">Books</a><a href="#film">Film</a><a href="#journal">Journal</a><a href="#contact">Contact</a></div><small>© 2026 Gabriella Michael. All rights reserved.</small><em>Made with stories, imagination, and a little bit of magic.</em></footer>
-<script src="script.js"></script>
+
+<!-- COMING SOON STRIP -->
+<div class="container reveal" style="padding:44px 6vw; display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+  <span class="eyebrow" style="margin:0;">Coming Next</span>
+  <span style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.3rem;">A Fate of <em>Ophelia</em> — a cursed king, a stolen crown, a marriage neither of them chose.</span>
+  <a href="#contact" class="btn btn-ghost" style="padding:12px 22px;">Join The Reader List</a>
+</div>
+
+<div class="thorn-divider reveal" aria-hidden="true">
+  <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+    <path class="vine" d="M0 20 Q125 5, 250 20 T500 20"/>
+  </svg>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="about-portrait">
+          <img src="https://gabriellamichael.com.ng/author.jpeg" alt="Gabriella Michael, author and screenwriter">
+        </div>
+        <p class="about-caption">Gabriella Michael / Writer &amp; Storyteller</p>
+      </div>
+      <div class="about-copy reveal">
+        <span class="eyebrow">The Story Behind the Stories</span>
+        <h2 style="margin:18px 0 26px;">She writes the worlds <em>she wants to live in.</em></h2>
+        <p>Gabriella Michael is a Nigerian author and screenwriter passionate about fantasy, romance, film, and emotionally driven stories. She creates stories that explore love, identity, destiny, power, heartbreak, mystery, and the extraordinary worlds hidden beyond ordinary life.</p>
+        <p>She is the creator of multiple fictional worlds and the founder of Gabriella Michael Studios, where stories move from page to screen.</p>
+        <div class="cta-row">
+          <a href="#contact" class="btn btn-ghost">Get In Touch ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="thorn-divider reveal" aria-hidden="true">
+  <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+    <path class="vine" d="M0 20 Q125 35, 250 20 T500 20"/>
+  </svg>
+</div>
+
+<!-- BOOKS -->
+<section id="books" class="section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">A Collection of Worlds</span>
+      <h2>My <em>Books</em></h2>
+      <p style="color:var(--bone-dim); margin-top:16px;">Fantasy, romance, darkness and impossible destinies. Every story begins with a world waiting to be discovered.</p>
+    </div>
+
+    <div class="books-grid">
+
+      <div class="book-card reveal">
+        <div class="book-cover">
+          <span class="book-tag">Published</span>
+          <img src="https://gabriellamichael.com.ng/ellie-cover.jpeg" alt="Ellie the Chosen: Born of Three Worlds cover">
+        </div>
+        <div class="book-meta">
+          <span class="genre">Fantasy Romance · Romantasy</span>
+          <h3>Ellie the Chosen: <em>Born of Three Worlds</em></h3>
+          <p>A story of destiny, power and a girl caught between worlds. Enter the universe of Ellie, where the extraordinary is not a legend. It is her inheritance.</p>
+          <div class="book-links">
+            <a href="https://www.pabpub.com/book/3597">Read on PabPub ↗</a>
+            <a href="https://share.google/4fPct9AE1BAuc6jdd">Paperback ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card reveal">
+        <div class="book-cover">
+          <span class="book-tag">Coming Soon</span>
+          <img src="https://gabriellamichael.com.ng/ophelia-cover.jpeg" alt="A Fate of Ophelia cover">
+        </div>
+        <div class="book-meta">
+          <span class="genre">Dark Romantasy</span>
+          <h3>A Fate of <em>Ophelia</em></h3>
+          <p>Some fates are written in blood. Others are waiting to be broken.</p>
+          <div class="book-links">
+            <a href="#contact">Join The Reader List</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card reveal">
+        <div class="book-cover">
+          <span class="book-tag">Coming Soon</span>
+          <img src="https://gabriellamichael.com.ng/shadows-cover.jpeg" alt="Shadows of Three Worlds cover">
+        </div>
+        <div class="book-meta">
+          <span class="genre">Fantasy</span>
+          <h3>Shadows of <em>Three Worlds</em></h3>
+          <p>The next chapter of the worlds created in Ellie the Chosen.</p>
+          <div class="book-links">
+            <a href="#contact">Join The Reader List</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card reveal">
+        <div class="book-cover">
+          <span class="book-tag">Available</span>
+          <img src="https://gabriellamichael.com.ng/chronicles-cover.jpeg" alt="Chronicles of the Chosen cover">
+        </div>
+        <div class="book-meta">
+          <span class="genre">Fantasy</span>
+          <h3>Chronicles of the <em>Chosen</em></h3>
+          <p>Another journey into a world where power chooses its vessels.</p>
+          <div class="book-links">
+            <a href="https://www.pabpub.com/book/3525">Read on PabPub ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card reveal">
+        <div class="book-cover">
+          <span class="book-tag">Webnovel</span>
+          <img src="https://gabriellamichael.com.ng/reborn-cover.jpeg" alt="Reborn to Reject Him First cover">
+        </div>
+        <div class="book-meta">
+          <span class="genre">Werewolf Romance</span>
+          <h3>Reborn to <em>Reject Him First</em></h3>
+          <p>A second chance, a dangerous love and a decision that changes everything.</p>
+          <div class="book-links">
+            <a href="http://wbnv.in/a/00k2Xnf">Read The Story ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="book-card reveal">
+        <div class="book-cover">
+          <span class="book-tag">Webnovel</span>
+          <img src="https://gabriellamichael.com.ng/forbidden-alpha-cover.jpeg" alt="The Forbidden Alpha cover">
+        </div>
+        <div class="book-meta">
+          <span class="genre">Dark Fantasy Romance</span>
+          <h3>The Forbidden <em>Alpha</em></h3>
+          <p>Some bonds should never exist. Some are impossible to escape.</p>
+          <div class="book-links">
+            <a href="http://wbnv.in/a/2cjg8jM">Read The Story ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="featured-strip reveal">
+      <img src="https://gabriellamichael.com.ng/ophelia-cover.jpeg" alt="A Fate of Ophelia cover, featured">
+      <div class="featured-copy">
+        <span class="eyebrow">A New Story Is Coming</span>
+        <h3>A Fate of <em>Ophelia</em></h3>
+        <p>Once upon a time, a crown was placed upon her head. But every crown has a price, and Ophelia's fate may demand everything.</p>
+        <a href="#contact" class="btn btn-seal">Join The Reader List</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WRITING / GENRES -->
+<section id="writing">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Words From My Worlds</span>
+      <h2>Stories with a pulse. <em>Worlds with a soul.</em></h2>
+    </div>
+  </div>
+  <div class="container reveal">
+    <div class="genre-list">
+      <div class="genre-item">
+        <span class="genre-num">I</span>
+        <h3>Romantasy</h3>
+        <p>Love, magic and impossible choices.</p>
+      </div>
+      <div class="genre-item">
+        <span class="genre-num">II</span>
+        <h3>Fantasy</h3>
+        <p>Worlds beyond the boundaries of reality.</p>
+      </div>
+      <div class="genre-item">
+        <span class="genre-num">III</span>
+        <h3>Romance</h3>
+        <p>Stories about the beautiful and complicated parts of love.</p>
+      </div>
+      <div class="genre-item">
+        <span class="genre-num">IV</span>
+        <h3>Drama</h3>
+        <p>Characters carrying secrets, wounds and dreams.</p>
+      </div>
+      <div class="genre-item">
+        <span class="genre-num">V</span>
+        <h3>Thriller</h3>
+        <p>Mystery, tension and truths that refuse to stay buried.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="thorn-divider reveal" aria-hidden="true">
+  <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+    <path class="vine" d="M0 20 Q125 5, 250 20 T500 20"/>
+  </svg>
+</div>
+
+<!-- FILM -->
+<section id="film" class="section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">From Page To Screen</span>
+      <h2>Some stories are meant to be read. <em>Others are meant to be seen.</em></h2>
+    </div>
+    <div class="film-wrap reveal">
+      <div class="film-media">
+        <img src="https://gabriellamichael.com.ng/last-witness.jpeg" alt="The Last Witness film poster">
+      </div>
+      <div class="film-overlay">
+        <span class="eyebrow">Gabriella Michael Studios</span>
+        <h3>The Last <em>Witness</em></h3>
+        <p>A psychological mystery about secrets, a missing father, a buried truth and the evidence that refuses to disappear.</p>
+        <span class="film-role">Screenwriter: Gabriella Michael</span>
+        <a href="https://youtube.com/@gabriellamichaelstudios" class="btn btn-ghost">Visit The Studio ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section id="journal">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">From The Desk Of Gabriella</span>
+      <h2>The Author's <em>Journal</em></h2>
+    </div>
+    <div class="journal-grid reveal">
+      <div class="journal-card" data-journal="worlds">
+        <div>
+          <span class="genre">Writing</span>
+          <h3>Building worlds that feel like home</h3>
+          <p class="journal-excerpt">People ask me why I write fantasy. The truth is simpler than they expect...</p>
+        </div>
+        <span class="journal-read">Read The Full Entry →</span>
+      </div>
+      <div class="journal-card" data-journal="ophelia">
+        <div>
+          <span class="genre">Books</span>
+          <h3>The story behind A Fate of Ophelia</h3>
+          <p class="journal-excerpt">Ophelia started with a single image that would not leave me alone...</p>
+        </div>
+        <span class="journal-read">Read The Full Entry →</span>
+      </div>
+      <div class="journal-card" data-journal="witness">
+        <div>
+          <span class="genre">Film</span>
+          <h3>From a screenplay to The Last Witness</h3>
+          <p class="journal-excerpt">Before Gabriella Michael Studios existed, The Last Witness existed only as a stack of scenes...</p>
+        </div>
+        <span class="journal-read">Read The Full Entry →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="journalModal">
+  <div class="modal-box">
+    <button class="modal-close" id="journalClose" aria-label="Close">✕</button>
+    <span class="eyebrow" id="modalGenre"></span>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div class="thorn-divider reveal" aria-hidden="true">
+  <svg viewBox="0 0 500 40" preserveAspectRatio="none">
+    <path class="vine" d="M0 20 Q125 35, 250 20 T500 20"/>
+  </svg>
+</div>
+
+<!-- READER QUOTES -->
+<section>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">What Readers Are Saying</span>
+      <h2>Voices From <em>The Worlds</em></h2>
+    </div>
+  </div>
+  <div class="quotes-track reveal">
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>Born Of Three Worlds completely pulled me into its world — the mix of mythology, prophecy, gods, and dragons made the story feel cinematic and addictive from the very beginning.</p>
+      <span class="quote-source">— Charlotte, 5★ · GoodNovel</span>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>I went into Aetherion expecting a cool dragon story, but I was NOT prepared for this level of emotional damage. If you love Fourth Wing or ACOTAR, stop what you're doing and read this immediately.</p>
+      <span class="quote-source">— Tracey, 5★ · GoodNovel</span>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>Ellie is a strong and powerful FMC, instantly likeable. A compelling, fast-paced dark fantasy with high stakes.</p>
+      <span class="quote-source">— Maryam Mishaal, GoodNovel</span>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>Reborn to Reject Him First is the rebirth romance done right. Rowena is sharp and strategic, the love triangle lets Seraphina be likeable instead of a villain, and Kade earns his redemption instead of getting handed it.</p>
+      <span class="quote-source">— Reader, 5★ · Webnovel</span>
+    </div>
+    <div class="quote-card">
+      <span class="quote-mark">"</span>
+      <p>Dark, unflinching, and impossible to put down. Liora's fight to stop hiding what she is, and to be loved anyway, hits harder with every chapter. Werewolf and vampire romance done with real teeth.</p>
+      <span class="quote-source">— Reader, 5★ · Webnovel</span>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="section-alt">
+  <div class="container">
+    <div class="newsletter reveal">
+      <span class="eyebrow">The Reader Community</span>
+      <h2 style="margin:18px 0 22px;">Enter <em>My World</em></h2>
+      <p>Be the first to hear about new books, secret projects, writing updates, and stories from behind the scenes.</p>
+      <form class="newsletter-form" id="newsletterForm">
+        <input type="hidden" name="access_key" value="PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE">
+        <input type="hidden" name="subject" value="New Reader List Signup — gabriellamichael.com.ng">
+        <input type="hidden" name="from_name" value="Gabriella Michael Website">
+        <input type="email" name="email" placeholder="Your email address" required aria-label="Email address">
+        <button type="submit">Join The Reader List</button>
+      </form>
+      <p class="newsletter-note" id="newsletterNote"></p>
+    </div>
+  </div>
+</section>
+
+<!-- COLLABORATIONS -->
+<section id="work">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Collaborations</span>
+      <h2>Let's Create <em>Something</em></h2>
+    </div>
+    <div class="collab-tags reveal">
+      <span class="collab-tag">Ghostwriting</span>
+      <span class="collab-tag">Scriptwriting</span>
+      <span class="collab-tag">Story Development</span>
+      <span class="collab-tag">Creative Writing</span>
+      <span class="collab-tag">Speaking / Literary Events</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section-alt">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <span class="eyebrow">Let's Talk Stories</span>
+        <h2>Have a story <em>to tell?</em></h2>
+        <p>For writing collaborations, film projects, literary events and professional enquiries, get in touch.</p>
+      </div>
+      <div class="social-list reveal">
+        <a href="mailto:michaelgabriella145@gmail.com"><span class="dot"></span>Email — michaelgabriella145@gmail.com</a>
+        <a href="https://www.instagram.com/gabriellamichael_author/"><span class="dot"></span>Instagram</a>
+        <a href="https://www.tiktok.com/@gabri_ellamichael"><span class="dot"></span>TikTok</a>
+        <a href="https://wa.me/2349078507935"><span class="dot"></span>WhatsApp</a>
+        <a href="https://youtube.com/@officialgabriella_michael?si=9IUn-QOKKBRXG5S9"><span class="dot"></span>YouTube — Follow My Journey</a>
+        <a href="https://youtube.com/@gabriellamichaelstudios"><span class="dot"></span>YouTube — Gabriella Michael Studios</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span class="brand">GABRIELLA MICHAEL</span>
+    <span class="eyebrow">Author · Screenwriter · Storyteller</span>
+    <ul class="footer-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#books">Books</a></li>
+      <li><a href="#film">Film</a></li>
+      <li><a href="#journal">Journal</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-fine" style="font-family:'Playfair Display',serif; font-style:italic; color:var(--gold-light); font-size:1rem; margin-bottom:14px;">"I speak in ink and hearts would stir, I am the Author of Dreams."</p>
+    <p class="footer-fine">© 2026 Gabriella Michael. All rights reserved.<br>Made with stories, imagination, and a little bit of magic.</p>
+  </div>
+</footer>
+
+<script>
+  // Header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive:true });
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', false);
+  }));
+
+  // Bleeding rose scroll progress
+  const roseFill = document.querySelector('.rose-fill');
+  function updateRose(){
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? Math.min(1, scrollTop / docHeight) : 0;
+    const inset = 100 - (pct * 100);
+    roseFill.style.clipPath = `inset(${inset}% 0 0 0)`;
+  }
+  window.addEventListener('scroll', updateRose, { passive:true });
+  updateRose();
+
+  // Journal modal
+  const journalPosts = {
+    worlds: {
+      genre: 'Writing',
+      title: 'Building Worlds That Feel Like Home',
+      body: [
+        "People ask me why I write fantasy. The truth is simpler than they expect. I write fantasy because it is the only place I get to build something from nothing and watch it become real.",
+        "Every world I create starts as a feeling before it becomes a place. Aetherion did not begin with a map. It began with the image of a girl standing at the edge of the ocean, holding a weapon she never asked for. Everything else, the gods, the prophecy, the politics, grew around her.",
+        "I think that is the secret to a world that feels alive. It cannot start with rules. It has to start with a person, and the rules have to exist because of what that person needs to survive.",
+        "When I sit down to write, I am not designing a magic system or drawing borders on a continent. I am asking one question. What does it cost this character to be here. Once I know the cost, the world writes itself around it.",
+        "That is what I hope readers feel when they step into my stories. Not a world built to impress them, but a world built because someone in it needed somewhere to belong."
+      ]
+    },
+    ophelia: {
+      genre: 'Books',
+      title: 'The Story Behind A Fate of Ophelia',
+      body: [
+        "Ophelia started with a single image that would not leave me alone. A princess standing in front of a crown that was never meant for her, about to marry a king who has been cursed to outlive everyone he loves.",
+        "I wanted to write something about the particular loneliness of power. Ophelia is not powerless. She is a princess, she has a title, people bow to her. But none of that protects her from a marriage she never chose, to a man carrying centuries of grief he cannot name.",
+        "The king was harder to write than I expected. Cursed immortal love interests can slide into cliche very fast if you are not careful, so I kept asking myself what four hundred years of losing everyone would actually do to a person. Not romantic brooding. Real damage.",
+        "This book sits closer to my heart than most of what I have written. It is dark, it is slow in the way a wound is slow, and it does not let either of them off easy. I am currently working toward a complete manuscript with the goal of submitting it to Red Tower Books, and every chapter has to earn its place before I let it go.",
+        "I will be sharing more as the story comes together. If you want to be the first to know when it is ready, join the reader list below."
+      ]
+    },
+    witness: {
+      genre: 'Film',
+      title: 'From a Screenplay to The Last Witness',
+      body: [
+        "Before Gabriella Michael Studios existed, The Last Witness existed only as a stack of scenes I could not stop thinking about.",
+        "I wrote it as a psychological mystery, the kind where the real crime is not the one everyone is looking at. A missing father. A daughter who knows more than she is saying. Evidence that keeps surfacing exactly when someone needs it buried.",
+        "Writing for the screen is a different discipline than writing a novel. A reader will sit with a character's thoughts for a page. A viewer gets a look, a pause, a door closing a second too slowly. Every piece of information has to live in something someone can see.",
+        "That constraint taught me more about tension than almost anything else I have written. You cannot hide behind narration. The silence has to do the work.",
+        "Bringing The Last Witness to life through Gabriella Michael Studios has been about proving that stories from this side of the industry, the ones we build ourselves, can carry the same weight as anything else on screen. This is the first of many."
+      ]
+    }
+  };
+
+  const journalModal = document.getElementById('journalModal');
+  const modalGenre = document.getElementById('modalGenre');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.getElementById('modalBody');
+
+  document.querySelectorAll('.journal-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const post = journalPosts[card.dataset.journal];
+      if(!post) return;
+      modalGenre.textContent = post.genre;
+      modalTitle.textContent = post.title;
+      modalBody.innerHTML = post.body.map(p => `<p>${p}</p>`).join('');
+      journalModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  document.getElementById('journalClose').addEventListener('click', closeJournal);
+  journalModal.addEventListener('click', (e) => { if(e.target === journalModal) closeJournal(); });
+  function closeJournal(){
+    journalModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Newsletter form -> Web3Forms
+  const newsletterForm = document.getElementById('newsletterForm');
+  const newsletterNote = document.getElementById('newsletterNote');
+  if(newsletterForm){
+    newsletterForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = newsletterForm.querySelector('button');
+      const originalText = btn.textContent;
+      const key = newsletterForm.access_key.value;
+      if(!key || key === 'PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE'){
+        newsletterNote.textContent = 'Form not fully set up yet — add your Web3Forms access key.';
+        return;
+      }
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+      try{
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(newsletterForm)))
+        });
+        const data = await res.json();
+        if(data.success){
+          btn.textContent = "You're On The List ✨";
+          newsletterForm.reset();
+        } else {
+          btn.textContent = originalText;
+          newsletterNote.textContent = 'Something went wrong — please try again.';
+        }
+      } catch(err){
+        btn.textContent = originalText;
+        newsletterNote.textContent = 'Something went wrong — please try again.';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  }
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal, .thorn-divider');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
 </body>
 </html>
