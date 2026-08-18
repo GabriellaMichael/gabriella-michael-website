@@ -1360,16 +1360,18 @@ svghtml lang="en">
           body: JSON.stringify(Object.fromEntries(new FormData(newsletterForm)))
         });
         const data = await res.json();
+        console.log('Web3Forms response:', data);
         if(data.success){
           btn.textContent = "You're On The List ✨";
           newsletterForm.reset();
         } else {
           btn.textContent = originalText;
-          newsletterNote.textContent = 'Something went wrong — please try again.';
+          newsletterNote.textContent = data.message ? ('Error: ' + data.message) : 'Something went wrong — please try again.';
         }
       } catch(err){
+        console.error('Web3Forms fetch error:', err);
         btn.textContent = originalText;
-        newsletterNote.textContent = 'Something went wrong — please try again.';
+        newsletterNote.textContent = 'Network error: ' + err.message;
       } finally {
         btn.disabled = false;
       }
