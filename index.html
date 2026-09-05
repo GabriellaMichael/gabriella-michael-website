@@ -169,13 +169,20 @@
     padding:150px 6vw 80px;
     overflow:hidden;
   }
+  .hero-video{
+    position:absolute; inset:0; z-index:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    object-position:center 30%;
+  }
   .hero::before{
     content:'';
     position:absolute; inset:0; z-index:0;
     background:
       radial-gradient(ellipse 70% 60% at 78% 40%, rgba(161,39,60,0.28), transparent 65%),
       radial-gradient(ellipse 50% 70% at 10% 80%, rgba(99,57,74,0.5), transparent 70%),
-      radial-gradient(ellipse 90% 50% at 50% 100%, rgba(58,30,38,0.55), transparent);
+      radial-gradient(ellipse 90% 50% at 50% 100%, rgba(58,30,38,0.55), transparent),
+      linear-gradient(180deg, rgba(74,37,48,0.55), rgba(74,37,48,0.35) 40%, rgba(74,37,48,0.75));
   }
   .hero::after{
     /* mist layer */
@@ -643,6 +650,73 @@
   .award-card h3{ font-size:1.2rem; margin-bottom:8px; font-style:italic; }
   .award-card p{ color:var(--bone-dim); font-size:0.92rem; }
 
+  /* ---------- SPLASH ENTRANCE ---------- */
+  .splash-overlay{
+    position:fixed; inset:0; z-index:400;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 30%, rgba(161,39,60,0.35), transparent 65%),
+      rgba(23,11,15,0.94);
+    backdrop-filter:blur(6px);
+    display:none;
+    align-items:center; justify-content:center;
+    padding:30px 6vw;
+  }
+  .splash-overlay.open{ display:flex; }
+  .splash-box{
+    background:var(--wine-deep);
+    border:1px solid var(--gold);
+    box-shadow:0 30px 80px rgba(10,4,6,0.6);
+    max-width:820px; width:100%;
+    display:grid; grid-template-columns:0.8fr 1.2fr;
+    overflow:hidden;
+  }
+  @media (max-width:720px){ .splash-box{ grid-template-columns:1fr; } }
+  .splash-cover{ position:relative; }
+  .splash-cover img{ width:100%; height:100%; object-fit:cover; display:block; }
+  @media (max-width:720px){ .splash-cover{ max-height:260px; } }
+  .splash-copy{ padding:44px 40px; }
+  @media (max-width:720px){ .splash-copy{ padding:34px 28px; } }
+  .splash-copy h2{ font-size:clamp(1.8rem,4vw,2.4rem); margin-bottom:16px; font-style:italic; }
+  .splash-copy p{ color:var(--bone-dim); margin-bottom:28px; }
+  .splash-ctas{ display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
+  .splash-ctas .btn{ width:100%; justify-content:center; }
+
+  /* ---------- WORLD OF OPHELIA ---------- */
+  .ophelia-reveal{
+    display:grid; grid-template-columns:0.85fr 1.15fr; gap:60px; align-items:center;
+    margin-bottom:80px;
+  }
+  @media (max-width:900px){ .ophelia-reveal{ grid-template-columns:1fr; } }
+  .ophelia-reveal img{
+    width:100%;
+    border:1px solid var(--gold);
+    box-shadow:var(--shadow);
+  }
+  .ophelia-reveal-copy .eyebrow{ margin-bottom:16px; }
+  .ophelia-reveal-copy h3{ font-size:2rem; margin-bottom:18px; font-style:italic; }
+  .ophelia-reveal-copy p{ color:var(--bone-dim); margin-bottom:26px; }
+
+  .moodboard-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:34px;
+  }
+  @media (max-width:820px){ .moodboard-grid{ grid-template-columns:1fr; } }
+  .moodboard-card{
+    border:1px solid var(--line);
+    overflow:hidden;
+  }
+  .moodboard-card img{
+    width:100%; display:block;
+    transition:transform 0.6s ease;
+  }
+  .moodboard-card:hover img{ transform:scale(1.03); }
+  .moodboard-label{
+    padding:22px 26px;
+    border-top:1px solid var(--line);
+  }
+  .moodboard-label .genre{ font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.16em; color:var(--blood-bright); text-transform:uppercase; display:block; margin-bottom:8px; }
+  .moodboard-label h4{ font-family:'Playfair Display',serif; font-size:1.3rem; font-style:italic; color:var(--bone); }
+  .moodboard-label p{ color:var(--bone-dim); font-size:0.92rem; margin-top:8px; }
+
   /* ---------- NEWSLETTER ---------- */
   .newsletter{
     text-align:center;
@@ -711,6 +785,42 @@
 </head>
 <body>
 
+<!-- ENTRANCE SPLASH: A Fate of Ophelia -->
+<div class="splash-overlay" id="splashOverlay">
+  <div class="splash-box">
+    <div class="splash-cover">
+      <img src="https://gabriellamichael.com.ng/ophelia-cover.jpeg" alt="A Fate of Ophelia cover">
+    </div>
+    <div class="splash-copy">
+      <span class="event-tag" style="position:static; display:inline-block; margin-bottom:18px;">Coming Soon</span>
+      <h2>A Fate of <em>Ophelia</em></h2>
+      <p>Some fates are written in blood. Others are waiting to be broken. Be the first to know when Ophelia's story is ready.</p>
+      <div class="splash-ctas">
+        <button class="btn btn-seal" id="splashJoinBtn" type="button">Join The Reader List</button>
+        <button class="btn btn-ghost" id="splashEnterBtn" type="button">Enter The Site</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER MODAL (pops up instantly) -->
+<div class="modal-overlay" id="newsletterModalOverlay">
+  <div class="modal-box" style="max-width:520px; text-align:center;">
+    <button class="modal-close" id="newsletterModalClose" aria-label="Close">✕</button>
+    <span class="eyebrow">The Reader Community</span>
+    <h3 style="margin:14px 0 16px;">Enter <em>My World</em></h3>
+    <p>Be the first to hear about new books, secret projects, writing updates, and stories from behind the scenes.</p>
+    <form class="newsletter-form" id="newsletterModalForm" style="margin-top:26px;">
+      <input type="hidden" name="access_key" value="ef22f026-7430-44a8-8c2b-af608c90b937">
+      <input type="hidden" name="subject" value="New Reader List Signup — gabriellamichael.com.ng">
+      <input type="hidden" name="from_name" value="Gabriella Michael Website">
+      <input type="email" name="email" placeholder="Your email address" required aria-label="Email address">
+      <button type="submit">Join The Reader List</button>
+    </form>
+    <p class="newsletter-note" id="newsletterModalNote"></p>
+  </div>
+</div>
+
 <div class="rose-marker" aria-hidden="true">
   <svg viewBox="0 0 100 100">
     <g class="rose-outline">
@@ -733,6 +843,7 @@
       <li><a href="#home">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#books">Books</a></li>
+      <li><a href="#ophelia-world">Ophelia</a></li>
       <li><a href="#writing">Writing</a></li>
       <li><a href="#film">Film</a></li>
       <li><a href="#journal">Journal</a></li>
@@ -745,34 +856,30 @@
 
 <!-- HERO -->
 <section class="hero" id="home">
+  <video class="hero-video" autoplay muted loop playsinline poster="">
+    <source src="videos/hero-ophelia.mp4" type="video/mp4">
+  </video>
   <div class="hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Author · Screenwriter · Storyteller</span>
       <p style="font-family:'Playfair Display',serif; font-style:italic; color:var(--gold-light); font-size:1.05rem; margin:18px 0 22px;">"I speak in ink and hearts would stir, I am the Author of Dreams."</p>
-      <h1>Power chooses <em>its vessel.</em></h1>
-      <p class="hero-line">Enter the world of <em>Ellie the Chosen</em> — a girl caught between three worlds, and a destiny she never asked for.</p>
+      <h1>Some fates are <em>written in blood.</em></h1>
+      <p class="hero-line">Enter the world of <em>A Fate of Ophelia</em> — a cursed king, a stolen crown, and a marriage neither of them chose.</p>
       <div class="hero-ctas">
-        <a href="https://www.pabpub.com/book/3597" class="btn btn-seal">Read Ellie The Chosen</a>
+        <a href="javascript:void(0)" class="btn btn-seal" onclick="openNewsletterModal()">Join The Reader List</a>
         <a href="#books" class="btn btn-ghost">Explore All Books</a>
         <a href="https://youtube.com/@officialgabriella_michael?si=9IUn-QOKKBRXG5S9" class="btn btn-ghost">Watch Me Grow ↗</a>
       </div>
     </div>
     <div class="hero-cover-wrap">
       <div class="hero-cover">
-        <span class="hero-cover-tag">Published</span>
-        <img src="https://gabriellamichael.com.ng/ellie-cover.jpeg" alt="Ellie the Chosen: Born of Three Worlds cover">
+        <span class="hero-cover-tag">Coming Soon</span>
+        <img src="https://gabriellamichael.com.ng/ophelia-cover.jpeg" alt="A Fate of Ophelia cover">
       </div>
     </div>
   </div>
   <div class="scroll-cue"><span>Descend</span><span class="stem"></span></div>
 </section>
-
-<!-- COMING SOON STRIP -->
-<div class="container reveal" style="padding:44px 6vw; display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
-  <span class="eyebrow" style="margin:0;">Coming Next</span>
-  <span style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.3rem;">A Fate of <em>Ophelia</em> — a cursed king, a stolen crown, a marriage neither of them chose.</span>
-  <a href="#contact" class="btn btn-ghost" style="padding:12px 22px;">Join The Reader List</a>
-</div>
 
 <div class="thorn-divider reveal" aria-hidden="true">
   <svg viewBox="0 0 500 40" preserveAspectRatio="none">
@@ -800,6 +907,45 @@
       <div class="book-poster"><div class="poster-frame"><img src="https://gabriellamichael.com.ng/chronicles-cover.jpeg" alt="Chronicles of the Chosen"></div><span>Chronicles of the Chosen</span></div>
       <div class="book-poster"><div class="poster-frame"><img src="https://gabriellamichael.com.ng/reborn-cover.jpeg" alt="Reborn to Reject Him First"></div><span>Reborn to Reject Him First</span></div>
       <div class="book-poster"><div class="poster-frame"><img src="https://gabriellamichael.com.ng/forbidden-alpha-cover.jpeg" alt="The Forbidden Alpha"></div><span>The Forbidden Alpha</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORLD OF OPHELIA -->
+<section id="ophelia-world" class="section-alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">Cover Reveal</span>
+      <h2>The World of <em>Ophelia</em></h2>
+    </div>
+
+    <div class="ophelia-reveal reveal">
+      <img src="images/ophelia-cover-reveal.jpg" alt="A Fate of Ophelia official cover reveal, showing tropes: arranged marriage, the cursed king, the last dragon, dark royal court, tragic romance">
+      <div class="ophelia-reveal-copy">
+        <span class="eyebrow">Coming 2027 · A Dark Fantasy Romance</span>
+        <h3>An arranged marriage. <em>A cursed king.</em></h3>
+        <p>A crown she never wanted, a king who cannot outlive his own curse, and a court built on secrets sharper than any blade. Dragons, tragic romance, and a fate written long before Ophelia had a say in it.</p>
+        <a href="javascript:void(0)" class="btn btn-seal" onclick="openNewsletterModal()">Join The Reader List</a>
+      </div>
+    </div>
+
+    <div class="moodboard-grid reveal">
+      <div class="moodboard-card">
+        <img src="images/ophelia-moodboard.jpg" alt="Ophelia character mood board — a princess in a dark gothic castle, dragons and dragon eggs, moonlit towers">
+        <div class="moodboard-label">
+          <span class="genre">The Princess</span>
+          <h4>Ophelia</h4>
+          <p>A crown placed on her head, a fate she never chose, and a world of dragons and dark court politics closing in around her.</p>
+        </div>
+      </div>
+      <div class="moodboard-card">
+        <img src="images/aurelius-moodboard.jpg" alt="Aurelius character mood board — a cursed king with a crown, wolves, a gothic castle, a bloodstained sealed letter">
+        <div class="moodboard-label">
+          <span class="genre">The Cursed King</span>
+          <h4>Aurelius</h4>
+          <p>Centuries of loss behind cold, golden eyes. A king cursed to outlive everyone he loves, bound now to a wife who was never given a choice.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -870,7 +1016,7 @@
           <h3>A Fate of <em>Ophelia</em></h3>
           <p>Some fates are written in blood. Others are waiting to be broken.</p>
           <div class="book-links">
-            <a href="#contact">Join The Reader List</a>
+            <a href="javascript:void(0)" onclick="openNewsletterModal()">Join The Reader List</a>
           </div>
         </div>
       </div>
@@ -885,7 +1031,7 @@
           <h3>Shadows of <em>Three Worlds</em></h3>
           <p>The next chapter of the worlds created in Ellie the Chosen.</p>
           <div class="book-links">
-            <a href="#contact">Join The Reader List</a>
+            <a href="javascript:void(0)" onclick="openNewsletterModal()">Join The Reader List</a>
           </div>
         </div>
       </div>
@@ -943,7 +1089,7 @@
         <span class="eyebrow">A New Story Is Coming</span>
         <h3>A Fate of <em>Ophelia</em></h3>
         <p>Once upon a time, a crown was placed upon her head. But every crown has a price, and Ophelia's fate may demand everything.</p>
-        <a href="#contact" class="btn btn-seal">Join The Reader List</a>
+        <a href="javascript:void(0)" class="btn btn-seal" onclick="openNewsletterModal()">Join The Reader List</a>
       </div>
     </div>
 
@@ -1339,17 +1485,16 @@
     document.body.style.overflow = '';
   }
 
-  // Newsletter form -> Web3Forms
-  const newsletterForm = document.getElementById('newsletterForm');
-  const newsletterNote = document.getElementById('newsletterNote');
-  if(newsletterForm){
-    newsletterForm.addEventListener('submit', async (e) => {
+  // Newsletter form -> Web3Forms (reusable for inline form + popup modal)
+  function setupNewsletterForm(form, note){
+    if(!form) return;
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = newsletterForm.querySelector('button');
+      const btn = form.querySelector('button');
       const originalText = btn.textContent;
-      const key = newsletterForm.access_key.value;
+      const key = form.access_key.value;
       if(!key || key === 'PASTE_YOUR_WEB3FORMS_ACCESS_KEY_HERE'){
-        newsletterNote.textContent = 'Form not fully set up yet — add your Web3Forms access key.';
+        note.textContent = 'Form not fully set up yet — add your Web3Forms access key.';
         return;
       }
       btn.textContent = 'Sending…';
@@ -1358,26 +1503,58 @@
         const res = await fetch('https://api.web3forms.com/submit', {
           method:'POST',
           headers:{ 'Content-Type':'application/json', 'Accept':'application/json' },
-          body: JSON.stringify(Object.fromEntries(new FormData(newsletterForm)))
+          body: JSON.stringify(Object.fromEntries(new FormData(form)))
         });
         const data = await res.json();
         console.log('Web3Forms response:', data);
         if(data.success){
           btn.textContent = "You're On The List ✨";
-          newsletterForm.reset();
+          form.reset();
         } else {
           btn.textContent = originalText;
-          newsletterNote.textContent = data.message ? ('Error: ' + data.message) : 'Something went wrong — please try again.';
+          note.textContent = data.message ? ('Error: ' + data.message) : 'Something went wrong — please try again.';
         }
       } catch(err){
         console.error('Web3Forms fetch error:', err);
         btn.textContent = originalText;
-        newsletterNote.textContent = 'Network error: ' + err.message;
+        note.textContent = 'Network error: ' + err.message;
       } finally {
         btn.disabled = false;
       }
     });
   }
+  setupNewsletterForm(document.getElementById('newsletterForm'), document.getElementById('newsletterNote'));
+  setupNewsletterForm(document.getElementById('newsletterModalForm'), document.getElementById('newsletterModalNote'));
+
+  // Newsletter popup modal open/close
+  const newsletterModalOverlay = document.getElementById('newsletterModalOverlay');
+  function openNewsletterModal(){
+    newsletterModalOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNewsletterModal(){
+    newsletterModalOverlay.classList.remove('open');
+    if(!splashOverlay.classList.contains('open')){ document.body.style.overflow = ''; }
+  }
+  document.getElementById('newsletterModalClose').addEventListener('click', closeNewsletterModal);
+  newsletterModalOverlay.addEventListener('click', (e) => { if(e.target === newsletterModalOverlay) closeNewsletterModal(); });
+
+  // Entrance splash: A Fate of Ophelia — shows once per visit
+  const splashOverlay = document.getElementById('splashOverlay');
+  if(!sessionStorage.getItem('ophelia_splash_seen')){
+    splashOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSplash(){
+    splashOverlay.classList.remove('open');
+    sessionStorage.setItem('ophelia_splash_seen', '1');
+    if(!newsletterModalOverlay.classList.contains('open')){ document.body.style.overflow = ''; }
+  }
+  document.getElementById('splashEnterBtn').addEventListener('click', closeSplash);
+  document.getElementById('splashJoinBtn').addEventListener('click', () => {
+    closeSplash();
+    openNewsletterModal();
+  });
 
   // Reveal on scroll
   const revealEls = document.querySelectorAll('.reveal, .thorn-divider');
